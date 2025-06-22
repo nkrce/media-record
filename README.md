@@ -16,7 +16,7 @@ Nikolina Krce
 
 ### Prototip aplikacije
 
-Figma: https://figma.com/...
+Figma: [Media Record - Figma](https://www.figma.com/proto/Qyz4jHr9P3jTMsSs7yaDl8/Media-Record?node-id=1101-60&p=f&t=D22yWXWPmv3oFdw1-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1101%3A60)
 
 ### Javni link na aplikaciju
 
