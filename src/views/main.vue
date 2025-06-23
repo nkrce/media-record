@@ -11,6 +11,7 @@ import gamesIcon from '@/assets/games_icon.png'
 import musicIcon from '@/assets/music_icon.png'
 
 const Popup = ref(false)
+const selectList = ref('mainPage')
 </script>
 
 <template>
@@ -42,18 +43,22 @@ const Popup = ref(false)
         <ListButton
          :imgSrc="booksIcon"
          title="Books"
+         @click="selectList = 'Books'"
         />
         <ListButton
          :imgSrc="moviesIcon"
          title="Movies"
+         @click="selectList = 'Movies'"
         />
         <ListButton
          :imgSrc="gamesIcon"
          title="Games"
+         @click="selectList = 'Games'"
         />
         <ListButton
          :imgSrc="musicIcon"
          title="Music"
+         @click="selectList = 'Music'"
         />
   </div>
 
@@ -63,7 +68,7 @@ const Popup = ref(false)
 
 <!--ListStructure component-->
 <!--BOOKS-->
- <ListStructure title="Books">
+ <ListStructure v-if="selectList === 'Books'" title="Books">
 <CardElement
       :imgSrc="booksIcon"
       title="Book Title"
@@ -85,7 +90,7 @@ const Popup = ref(false)
  </ListStructure>
 
  <!--MOVIES-->
- <ListStructure title="Movies">
+ <ListStructure v-if="selectList === 'Movies'" title="Movies">
 <CardElement
       :imgSrc="moviesIcon"
       title="Movie Title"
@@ -107,7 +112,7 @@ const Popup = ref(false)
  </ListStructure>
 
  <!--GAMES-->
- <ListStructure title="Games">
+ <ListStructure v-if="selectList === 'Games'" title="Games">
 <CardElement
       :imgSrc="gamesIcon"
       title="Game Title"
@@ -129,7 +134,7 @@ const Popup = ref(false)
  </ListStructure>
 
  <!--MUSIC-->
- <ListStructure title="Music">
+ <ListStructure v-if="selectList === 'Music'" title="Music">
 <CardElement
       :imgSrc="musicIcon"
       title="Music Title"
