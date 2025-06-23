@@ -1,6 +1,14 @@
 <script setup>
 import { ref } from 'vue'
 import CreateNew from '@/components/CreateNew.vue'
+import ListStructure from '@/components/ListStructure.vue'
+import CardElement from '@/components/CardElement.vue'
+import ListButton from '@/components/ListButton.vue'
+
+import booksIcon from '@/assets/books_icon.png'
+import moviesIcon from '@/assets/movies_icon.png'
+import gamesIcon from '@/assets/games_icon.png'
+import musicIcon from '@/assets/music_icon.png'
 
 const Popup = ref(false)
 </script>
@@ -29,167 +37,121 @@ const Popup = ref(false)
      <h1 class="text-2xl">Welcome back!</h1>
   </div>
 
+  <!--buttons za navigiranje kroz liste; dodati v-if za funkcionalno navigiranje listama-->
   <div class="flex flex-wrap justify-center items-center gap-2 p-2 rounded-lg w-fit pt-10 mx-auto"> 
-        <button  class="bg-gray-800/50 rounded-xl p-2 w-50 h-50 flex flex-col justify-center items-center hover:bg-emerald-600/40 transition">
-          <img src="../assets/books_icon.png" alt="Books logo" class="h-30 w-65 object-scale-down mx-auto block"/> <br>
-          <p>Books</p> 
-        </button>
-        <button class="bg-gray-800/50 rounded-xl p-2 w-50 h-50 flex flex-col justify-center items-center hover:bg-emerald-600/40 transition">
-          <img src="../assets/movies_icon.png" alt="Movies logo" class="h-30 w-65 object-scale-down mx-auto block"/> <br>
-          <p>Movies</p>
-        </button>
-        <button class="bg-gray-800/50 rounded-xl p-2 w-50 h-50 flex flex-col justify-center items-center hover:bg-emerald-600/40 transition">
-          <img src="../assets/games_icon.png" alt="Games logo" class="h-30 w-65 object-scale-down mx-auto block"/> <br>
-          <p>Games</p>
-        </button>
-        <button class="bg-gray-800/50 rounded-xl p-2 w-50 h-50 flex flex-col justify-center items-center hover:bg-emerald-600/40 transition">
-          <img src="../assets/music_icon.png" alt="Music logo" class="h-30 w-65 object-scale-down mx-auto block"/> <br>
-          <p>Music</p>
-        </button>
+        <ListButton
+         :imgSrc="booksIcon"
+         title="Books"
+        />
+        <ListButton
+         :imgSrc="moviesIcon"
+         title="Movies"
+        />
+        <ListButton
+         :imgSrc="gamesIcon"
+         title="Games"
+        />
+        <ListButton
+         :imgSrc="musicIcon"
+         title="Music"
+        />
   </div>
 
 <br>
 
 <!-- Dodati filtere na list buttons tako da se sljedeće liste pojave na stranici samo kad kliknemo na određeni tip liste -->
-<!-- 1. Books -->
-<div class="w-full p-4 pt-10 bg-gray-800/20 rounded-lg">
-  <!-- Naslov liste i možda kasnije dodavanje mogućnosti za download pdf-a liste-->
-  <div class="flex items-center justify-between  mb-6">
-     <h1 class="text-2xl">Books</h1>
-  </div>
 
-  <!-- Stavke liste, review odabrane medije -->
-   <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-    <!-- early design za review card, možda dodati scroll funkciju za duže komentare, urediti dimenzije -->
-    <div class="bg-violet-900/40 rounded-xl p-4 text-white shadow-md hover:shadow-lg transition">
-      <img src="../assets/books_icon.png" alt="Book cover" class="w-full h-40 object-contain mb-4 rounded" />
-      <h2 class="text-lg font-semibold mb-2">Book Title</h2>
-      <p class="text-sm mb-2 italic text-gray-300">"Review comment."</p>
-      <p class="text-emerald-400 font-bold">★★★★☆</p>
-    </div>
+<!--ListStructure component-->
+<!--BOOKS-->
+ <ListStructure title="Books">
+<CardElement
+      :imgSrc="booksIcon"
+      title="Book Title"
+      comment="Review comment"
+      rating="★★★★☆"
+    />
+<CardElement
+      :imgSrc="booksIcon"
+      title="Book Title"
+      comment="Review comment"
+      rating="★★★★☆"
+    />
+  <CardElement
+      :imgSrc="booksIcon"
+      title="Book Title"
+      comment="Review comment"
+      rating="★★★★☆"
+    />
+ </ListStructure>
 
-    <div class="bg-violet-900/40 rounded-xl p-4 text-white shadow-md hover:shadow-lg transition">
-      <img src="../assets/books_icon.png" alt="Book cover" class="w-full h-40 object-contain mb-4 rounded" />
-      <h2 class="text-lg font-semibold mb-2">Book Title</h2>
-      <p class="text-sm mb-2 italic text-gray-300">"Review comment."</p>
-      <p class="text-emerald-400 font-bold">★★★★☆</p>
-    </div>
+ <!--MOVIES-->
+ <ListStructure title="Movies">
+<CardElement
+      :imgSrc="moviesIcon"
+      title="Movie Title"
+      comment="Review comment"
+      rating="★★★★☆"
+    />
+<CardElement
+      :imgSrc="moviesIcon"
+      title="Movie Title"
+      comment="Review comment"
+      rating="★★★★☆"
+    />
+  <CardElement
+      :imgSrc="moviesIcon"
+      title="Movie Title"
+      comment="Review comment"
+      rating="★★★★☆"
+    />
+ </ListStructure>
 
-    <div class="bg-violet-900/40 rounded-xl p-4 text-white shadow-md hover:shadow-lg transition">
-      <img src="../assets/books_icon.png" alt="Book cover" class="w-full h-40 object-contain mb-4 rounded" />
-      <h2 class="text-lg font-semibold mb-2">Book Title</h2>
-      <p class="text-sm mb-2 italic text-gray-300">"Review comment."</p>
-      <p class="text-emerald-400 font-bold">★★★★☆</p>
-    </div>
-   </div>
+ <!--GAMES-->
+ <ListStructure title="Games">
+<CardElement
+      :imgSrc="gamesIcon"
+      title="Game Title"
+      comment="Review comment"
+      rating="★★★★☆"
+    />
+<CardElement
+      :imgSrc="gamesIcon"
+      title="Game Title"
+      comment="Review comment"
+      rating="★★★★☆"
+    />
+  <CardElement
+      :imgSrc="gamesIcon"
+      title="Game Title"
+      comment="Review comment"
+      rating="★★★★☆"
+    />
+ </ListStructure>
 
-   
-</div>
-
-<!-- 2. Movies -->
-<div class="w-full p-4 pt-10 bg-gray-800/20 rounded-lg">
-  <!-- Naslov liste i možda kasnije dodavanje mogućnosti za download pdf-a liste-->
-  <div class="flex items-center justify-between  mb-6">
-     <h1 class="text-2xl">Movies</h1>
-  </div>
-
-  <!-- Stavke liste, review odabrane medije -->
-   <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-    <!-- early design za review card, možda dodati scroll funkciju za duže komentare, urediti dimenzije -->
-    <div class="bg-violet-900/40 rounded-xl p-4 text-white shadow-md hover:shadow-lg transition">
-      <img src="../assets/movies_icon.png" alt="Movie cover" class="w-full h-40 object-contain mb-4 rounded" />
-      <h2 class="text-lg font-semibold mb-2">Movie Title</h2>
-      <p class="text-sm mb-2 italic text-gray-300">"Review comment."</p>
-      <p class="text-emerald-400 font-bold">★★★★☆</p>
-    </div>
-
-    <div class="bg-violet-900/40 rounded-xl p-4 text-white shadow-md hover:shadow-lg transition">
-      <img src="../assets/movies_icon.png" alt="Movie cover" class="w-full h-40 object-contain mb-4 rounded" />
-      <h2 class="text-lg font-semibold mb-2">Movie Title</h2>
-      <p class="text-sm mb-2 italic text-gray-300">"Review comment."</p>
-      <p class="text-emerald-400 font-bold">★★★★☆</p>
-    </div>
-
-    <div class="bg-violet-900/40 rounded-xl p-4 text-white shadow-md hover:shadow-lg transition">
-      <img src="../assets/movies_icon.png" alt="Movie cover" class="w-full h-40 object-contain mb-4 rounded" />
-      <h2 class="text-lg font-semibold mb-2">Movie Title</h2>
-      <p class="text-sm mb-2 italic text-gray-300">"Review comment."</p>
-      <p class="text-emerald-400 font-bold">★★★★☆</p>
-    </div>
-   </div>
-</div>
-
-
-<!-- 3. Games -->
-<div class="w-full p-4 pt-10 bg-gray-800/20 rounded-lg">
-  <!-- Naslov liste i možda kasnije dodavanje mogućnosti za download pdf-a liste-->
-  <div class="flex items-center justify-between  mb-6">
-     <h1 class="text-2xl">Games</h1>
-  </div>
-
-  <!-- Stavke liste, review odabrane medije -->
-   <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-    <!-- early design za review card, možda dodati scroll funkciju za duže komentare, urediti dimenzije -->
-    <div class="bg-violet-900/40 rounded-xl p-4 text-white shadow-md hover:shadow-lg transition">
-      <img src="../assets/games_icon.png" alt="Game cover" class="w-full h-40 object-contain mb-4 rounded" />
-      <h2 class="text-lg font-semibold mb-2">Game Title</h2>
-      <p class="text-sm mb-2 italic text-gray-300">"Review comment."</p>
-      <p class="text-emerald-400 font-bold">★★★★☆</p>
-    </div>
-
-    <div class="bg-violet-900/40 rounded-xl p-4 text-white shadow-md hover:shadow-lg transition">
-      <img src="../assets/games_icon.png" alt="Game cover" class="w-full h-40 object-contain mb-4 rounded" />
-      <h2 class="text-lg font-semibold mb-2">Game Title</h2>
-      <p class="text-sm mb-2 italic text-gray-300">"Review comment."</p>
-      <p class="text-emerald-400 font-bold">★★★★☆</p>
-    </div>
-
-    <div class="bg-violet-900/40 rounded-xl p-4 text-white shadow-md hover:shadow-lg transition">
-      <img src="../assets/games_icon.png" alt="Game cover" class="w-full h-40 object-contain mb-4 rounded" />
-      <h2 class="text-lg font-semibold mb-2">Game Title</h2>
-      <p class="text-sm mb-2 italic text-gray-300">"Review comment."</p>
-      <p class="text-emerald-400 font-bold">★★★★☆</p>
-    </div>
-   </div>
-</div>
+ <!--MUSIC-->
+ <ListStructure title="Music">
+<CardElement
+      :imgSrc="musicIcon"
+      title="Music Title"
+      comment="Review comment"
+      rating="★★★★☆"
+    />
+<CardElement
+      :imgSrc="musicIcon"
+      title="Music Title"
+      comment="Review comment"
+      rating="★★★★☆"
+    />
+  <CardElement
+      :imgSrc="musicIcon"
+      title="Music Title"
+      comment="Review comment"
+      rating="★★★★☆"
+    />
+ </ListStructure>
 
 
-
-<!-- 4. Music -->
-<div class="w-full p-4 pt-10 bg-gray-800/20 rounded-lg">
-  <!-- Naslov liste i možda kasnije dodavanje mogućnosti za download pdf-a liste-->
-  <div class="flex items-center justify-between  mb-6">
-     <h1 class="text-2xl">Music</h1>
-  </div>
-
-  <!-- Stavke liste, review odabrane medije -->
-   <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-    <!-- early design za review card, možda dodati scroll funkciju za duže komentare, urediti dimenzije -->
-    <div class="bg-violet-900/40 rounded-xl p-4 text-white shadow-md hover:shadow-lg transition">
-      <img src="../assets/music_icon.png" alt="Music cover" class="w-full h-40 object-contain mb-4 rounded" />
-      <h2 class="text-lg font-semibold mb-2">Music Title</h2>
-      <p class="text-sm mb-2 italic text-gray-300">"Review comment."</p>
-      <p class="text-emerald-400 font-bold">★★★★☆</p>
-    </div>
-
-    <div class="bg-violet-900/40 rounded-xl p-4 text-white shadow-md hover:shadow-lg transition">
-      <img src="../assets/music_icon.png" alt="Music cover" class="w-full h-40 object-contain mb-4 rounded" />
-      <h2 class="text-lg font-semibold mb-2">Music Title</h2>
-      <p class="text-sm mb-2 italic text-gray-300">"Review comment."</p>
-      <p class="text-emerald-400 font-bold">★★★★☆</p>
-    </div>
-
-    <div class="bg-violet-900/40 rounded-xl p-4 text-white shadow-md hover:shadow-lg transition">
-      <img src="../assets/music_icon.png" alt="Music cover" class="w-full h-40 object-contain mb-4 rounded" />
-      <h2 class="text-lg font-semibold mb-2">Music Title</h2>
-      <p class="text-sm mb-2 italic text-gray-300">"Review comment."</p>
-      <p class="text-emerald-400 font-bold">★★★★☆</p>
-    </div>
-   </div>
-</div>
-
-
-<!-- dodati button koji je uvijek u doljnem desnom kutu stranice koji nas vrati na početak stranice gdje su tipovi lista -->
+<!-- button koji je uvijek u doljnem desnom kutu stranice koji nas vrati na početak stranice gdje su tipovi lista -->
 <button 
   onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
   class="fixed bottom-4 right-4 z-50 p-4 bg-emerald-100/50 hover:bg-violet-200/50 text-white rounded-full shadow-lg transition duration-300"
