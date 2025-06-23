@@ -1,5 +1,8 @@
 <script setup>
- // JS - logika komponente
+import { ref } from 'vue'
+import CreateNew from '@/components/CreateNew.vue'
+
+const Popup = ref(false)
 </script>
 
 <template>
@@ -194,117 +197,18 @@
   <img src="../assets/up_icon.png" class="h-5 w-5 object-scale-down mx-auto block"/>
 </button>
 
-<!-- button za kreiranje nove liste i/ili nove stavke list; dodati pop up za dodavanje liste/stavke liste -->
-<button class="fixed top-20 right-4 z-50 p-4 bg-emerald-100/50 hover:bg-violet-200/50 text-white rounded-full shadow-lg transition ">
+<!-- button za kreiranje nove liste i/ili nove stavke list; pop up za dodavanje liste/elementa liste -->
+<button @click="Popup = true"
+  class="fixed top-20 right-4 z-50 p-4 bg-emerald-100/50 hover:bg-violet-200/50 text-white rounded-full shadow-lg transition ">
   <img src="../assets/create_icon.png" class="h-5 w-5 object-scale-down mx-auto block"/>
 </button>
 
-<!--izgled za pop up za odabir dodavanje liste ili stavke liste-->
-
-<div class="inset-0 flex items-center justify-center p-4">
-        <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full">
-            <h2 class="text-3xl font-bold mb-4 text-white text-center">Create new:</h2>
-            
-            <div class="flex flex-col justify-between items-center gap-3">
-
-                <RouterLink to="/main">
-                  <button class="w-full px-4 py-2 bg-violet-900 border border-white text-white font-bold rounded-lg transition-all shadow-lg cursor-pointer
-                     hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
-                     LIST
-                  </button>
-                </RouterLink>
-
-                <p class="text-white text-2xl font-semibold">or</p>
-
-                <RouterLink to="/main">
-                  <button class="w-full px-4 py-2 bg-emerald-600 border border-white text-white font-bold rounded-lg transition-all shadow-lg cursor-pointer
-                     hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
-                     LIST ELEMENT/REVIEW
-                  </button>
-                </RouterLink>
-            </div>
-
-        </div>
-    </div>
-
-  <!--izgled za pop up za dodavanje liste -->
-  <div class="inset-0 flex items-center justify-center p-4">
-        <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full">
-            <h2 class="text-3xl font-bold mb-4 text-white text-center">New list:</h2>
-
-            <input placeholder="List name..." type="name" 
-                class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400">
-            <!--mozda zamijeniti za upload image-->
-            <input placeholder="List image url..." type="image-url" 
-                class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400">
-
-
-           <div class="flex items-center gap-2 mb-4">
-              <label for="list-options" class="text-base font-medium text-white">
-                Choose the list type:
-              </label>
-              <select
-                id="list-options"
-                class="w-30 p-2 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 hover:border-gray-500 transition-all">
-                <option value="list-classic">Classic list</option>
-                <option value="review-list">Review list</option>
-              </select>
-           </div>
-                
-            <div class="flex items-center justify-end gap-3">
-
-                <RouterLink to="/main">
-                  <button class="w-full px-4 py-2 bg-gradient-to-br from-violet-700 to-emerald-500 border border-white text-white font-bold rounded-lg transition-all shadow-lg cursor-pointer
-                     hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
-                     create
-                  </button>
-                </RouterLink>
-            </div>
-
-        </div>
-    </div>
-
-    <!--izgled za pop up za dodavanje stavke liste -->
-  <div class="inset-0 flex items-center justify-center p-4">
-        <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full">
-            <h2 class="text-3xl font-bold mb-4 text-white text-center">New list element/review:</h2>
-
-            <div class="flex items-center gap-2 mb-4">
-              <label for="list-options" class="text-base font-medium text-white">
-                List:
-              </label>
-              <select
-                id="list-options"
-                class="w-30 p-2 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 hover:border-gray-500 transition-all">
-                <option value="books">Books</option>
-                <option value="movies">Movies</option>
-                <option value="games">Games</option>
-                <option value="music">Music</option>
-              </select>
-           </div>
-
-           <!--mozda zamijeniti za upload image-->
-           <input placeholder="Image url..." type="image-url" 
-                class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400">
-            <input placeholder="Title..." type="name" 
-                class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400">
-            <input placeholder="Comment..." type="name" 
-                class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400">
-
-            <!--dodati i rating opciju-->
-
-            <div class="flex items-center justify-end gap-3">
-
-                <RouterLink to="/main">
-                  <button class="w-full px-4 py-2 bg-gradient-to-br from-violet-700 to-emerald-500 border border-white text-white font-bold rounded-lg transition-all shadow-lg cursor-pointer
-                     hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
-                     create
-                  </button>
-                </RouterLink>
-            </div>
-
-        </div>
-    </div>
+<div v-if="Popup" class="fixed inset-0 z-50 bg-black/40 flex items-center justify-center">
+      <div class="p-6 rounded-xl max-w-xl w-full relative">
+        <button @click="Popup = false" class="absolute top-5 right-10 text-white font-bold text-3xl">&times;</button>
+        <CreateNew />
+      </div>
+</div>  
 
 </template>
 
