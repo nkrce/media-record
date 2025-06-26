@@ -13,7 +13,7 @@ defineProps({
     <img :src="imgSrc" class="w-full h-40 object-contain mb-4 rounded" />
     <h2 class="text-lg font-semibold mb-2">{{ title }}</h2>
     <p class="text-sm mb-2 italic text-gray-300">"{{ comment }}"</p>
-    <p class="text-emerald-400 font-bold">{{ rating }}</p>
+    <p class="text-emerald-400 font-bold">Rating: {{ rating }}/5★</p>
 </div>
 
 </template>
