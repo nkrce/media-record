@@ -35,7 +35,9 @@ const listElements = ref([
   {
     title: "Books",
     cards: [
-      { img: booksIcon, title: "Book Title 1", comment: "Review comment with more text to test out scroll bar bla bla bla bla blabla bla bla bla blabla bla bla bla bla", rating: "4",},
+      { img: booksIcon, title: "Book Title 1", 
+        comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        rating: "4",},
       { img: booksIcon, title: "Book Title 2", comment: "Review comment", rating: "3",},
       { img: booksIcon, title: "Book Title 3", comment: "Review comment", rating: "3.5",},
       { img: booksIcon, title: "Book Title 4", comment: "Review comment", rating: "5",},
@@ -126,6 +128,26 @@ const addCardElement = () => {
   Popup.value = false;
 }
 
+// brisanje liste/elementa liste
+const deleteCard = (index) => {
+  const list = listElements.value.find((list) => list.title === selectList.value);
+  if (list) {
+    list.cards.splice(index, 1);
+  }
+};
+
+const deleteList = (listTitle) => {
+  // brisanje iz listElements
+  listElements.value = listElements.value.filter(list => list.title !== listTitle);
+  
+  // brisanje iz listButtons
+  listButtons.value = listButtons.value.filter(button => button.title !== listTitle);
+  
+  if (selectList.value === listTitle) {
+    selectList.value = 'mainPage';
+  }
+};
+
 
 // aktivna lista
 const activeList = computed(() => {
@@ -133,10 +155,10 @@ const activeList = computed(() => {
 });
 </script>
 
+
+
 <template>
-  <header
-    class="fixed top-0 left-0 w-full h-11 bg-gradient-to-b from-violet-950 to-transparent text-white z-50 shadow-md"
-  >
+  <header class="fixed top-0 left-0 w-full h-11 bg-gradient-to-b from-violet-950 to-transparent text-white z-50 shadow-md">
     <div class="w-full flex items-center h-full px-4">
       <button @click="selectList = 'mainPage'">
         <div class="flex items-center gap-2">
@@ -152,7 +174,7 @@ const activeList = computed(() => {
       <nav class="ml-auto flex gap-4">
         <RouterLink to="/">
           <button
-            class="px-4 py-2 bg-gradient-to-br from-violet-700 to-emerald-500 text-white rounded-lg transition-all shadow-lg cursor-pointer hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
+            class="px-3 py-2 bg-gradient-to-br from-violet-700 to-emerald-500 text-white text-sm rounded-lg transition-all shadow-lg cursor-pointer hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
             Log out
           </button>
         </RouterLink>
@@ -181,7 +203,7 @@ const activeList = computed(() => {
 
   <!--ListStructure component za sve liste i CardElement unutar listi-->
   <div v-if="activeList">
-    <ListStructure :title="activeList.title">
+    <ListStructure :title="activeList.title" @delete="deleteList">
       <CardElement
         v-for="(card, index) in activeList.cards"
         :key="index"
@@ -189,11 +211,12 @@ const activeList = computed(() => {
         :title="card.title"
         :comment="card.comment"
         :rating="card.rating"
+        @delete="deleteCard(index)"
       />
     </ListStructure>
   </div>
 
-  <!-- button koji je uvijek u doljnem desnom kutu stranice koji nas vrati na početak stranice gdje su tipovi lista -->
+  <!-- button koji je uvijek u doljnem desnom kutu stranice koji nas vrati na početak stranice gdje su list buttons -->
   <button
     onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
     class="fixed bottom-4 right-4 z-50 p-4 bg-emerald-100/50 hover:bg-violet-200/50 text-white rounded-full shadow-lg transition duration-300"
@@ -257,7 +280,6 @@ const activeList = computed(() => {
             type="name"
             class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400"
           />
-          <!--mozda zamijeniti za upload image-->
           <input
             v-model="newListButton.img"
             placeholder="List image url..."
@@ -305,8 +327,7 @@ const activeList = computed(() => {
               </option>
             </select>
           </div>
-
-          <!--mozda zamijeniti za upload image-->
+          
           <input v-model="newCardElement.img"
             placeholder="Image url..."
             type="image-url"

@@ -1,29 +1,29 @@
-# media_record
+# "Media Record"
 
-This template should help get you started developing with Vue 3 in Vite.
+Aplikacija služi vođenju listi za bilo koju mediju  koju je korisnik gledao/slušao/čitao ili to planira raditi u budućnosti. Korisnik može odabrati za koji tip medija služi koja lista. Ako korisnik npr. odabere listu za knjige, prvo može označiti je li to lista pročitanih knjiga ili lista knjiga koje planira pročitati, nakon toga na listu može dodavati knjige, osobne recenzije i komentare. 
 
-## Recommended IDE Setup
+Funkcionalnosti:
+- stvaranje korisničkog računa 
+- stvaranje i imenovanje listi
+- dodavanje podataka u liste i uređivanje podataka u listi
+- ostavljanje osobnih recenzija i komentara za pojedinačne stavke u listi po izboru
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-## Customize configuration
+### Autor
+Nikolina Krce
 
-See [Vite Configuration Reference](https://vite.dev/config/).
 
-## Project Setup
+### Prototip aplikacije
 
-```sh
-npm install
-```
+Figma: [Media Record - Figma](https://www.figma.com/proto/Qyz4jHr9P3jTMsSs7yaDl8/Media-Record?node-id=1101-60&p=f&t=D22yWXWPmv3oFdw1-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1101%3A60)
 
-### Compile and Hot-Reload for Development
+### Javni link na aplikaciju
 
-```sh
-npm run dev
-```
+Web: https://netlify... (dodat će se kasnije)
 
-### Compile and Minify for Production
+### Organizacija
 
-```sh
-npm run build
-```
+[Sveučilište Jurja Dobrile u Puli](http://www.unipu.hr/)  
+[Fakultet informatike u Puli](https://fipu.unipu.hr/)  
+Programsko inženjerstvo, ak.god. 2024./2025.  
+Mentor: **Nikola Tanković** (https://fipu.unipu.hr/fipu/nikola.tankovic, nikola.tankovic@unipu.hr)
