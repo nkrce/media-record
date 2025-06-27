@@ -59,22 +59,22 @@ onAuthStateChanged(auth, async user => {
         ],
         listElements: [
           { title: 'Books', cards: [ 
-             { img: booksIcon, title: "Book Title 1", 
+             { img: 'https://www.faber.co.uk/wp-content/uploads/2022/09/Pride-and-Prejudice-529x815.jpg', title: "Pride and Prejudice by Jane Austen", 
                comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-               rating: "4",},
-             { img: booksIcon, title: "Book Title 2", comment: "Review comment", rating: "3",},
+               rating: "5",},
+             { img: 'https://harpercollins.co.uk/cdn/shop/files/x9780008537760_668991cc-5323-4f83-8c89-0052afc21a23.jpg?v=1750860174', title: "The Lord of the Rings by J. R. R. Tolkien", comment: "Review comment", rating: "4",},
           ] },
           { title: 'Movies', cards: [
-            { img: moviesIcon, title: "Movie Title 1", comment: "Review comment", rating: "4",},
-            { img: moviesIcon, title: "Movie Title 2", comment: "Review comment", rating: "3",},
+            { img: 'https://m.media-amazon.com/images/M/MV5BNGEwYjgwOGQtYjg5ZS00Njc1LTk2ZGEtM2QwZWQ2NjdhZTE5XkEyXkFqcGc@._V1_.jpg', title: "The Godfather", comment: "Review comment", rating: "4",},
+            { img: 'https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UX1000_.jpg', title: "The Dark Knight", comment: "Review comment", rating: "4",},
           ] },
           { title: 'Games', cards: [
-            { img: gamesIcon, title: "Game Title 1", comment: "Review comment", rating: "4",},
-            { img: gamesIcon, title: "Game Title 2", comment: "Review comment", rating: "3",},
+            { img: 'https://assets1.ignimgs.com/2019/06/04/legend-of-zelda-ocarina-of-time-3d-1559683061479.jpg', title: "The Legend of Zelda: Ocarina of Time ", comment: "Review comment", rating: "4",},
+            { img: 'https://m.media-amazon.com/images/M/MV5BN2I0N2Y3MWUtNjJiNy00NjRjLWE4ZTctOTQ2YWVhM2VhMTM4XkEyXkFqcGc@._V1_.jpg', title: "Baldur's Gate 3", comment: "Review comment", rating: "4",},
           ] },
           { title: 'Music', cards: [
-            { img: musicIcon, title: "Music Title 1", comment: "Review comment", rating: "4",},
-            { img: musicIcon, title: "Music Title 2", comment: "Review comment", rating: "3",},
+            { img: 'https://www.thisdayinmusic.com/wp-content/uploads/2018/07/Bohemian-Rhapsody.jpg', title: "Bohemian Rhapsody by Queen", comment: "Review comment", rating: "4",},
+            { img: 'https://i1.sndcdn.com/artworks-000017289777-n5qjf4-t500x500.jpg', title: "Imagine by John Lennon:", comment: "Review comment", rating: "3",},
           ] }
         ]
       };
