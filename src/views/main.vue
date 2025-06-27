@@ -182,7 +182,7 @@ const activeList = computed(() => {
   </header>
 
   <div class="pt-15 items-center justify-center text-center gap-4">
-    <h1 class="text-2xl">Welcome back!</h1>
+    <h1 class="text-3xl font-bold">Welcome back!</h1>
   </div>
 
   <!--buttons za navigiranje kroz liste -->
@@ -216,7 +216,7 @@ const activeList = computed(() => {
   <!-- button koji je uvijek u doljnem desnom kutu stranice koji nas vrati na početak stranice gdje su list buttons -->
   <button
     onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-    class="fixed bottom-4 right-4 z-50 p-4 bg-emerald-100/50 hover:bg-violet-200/50 text-white rounded-full shadow-lg transition duration-300"
+    class="fixed bottom-4 right-4 z-50 p-4 bg-emerald-100/50 hover:bg-gradient-to-br hover:from-violet-600 hover:to-emerald-500 text-white rounded-full shadow-lg transition duration-300"
     aria-label="Scroll to top">
     <img src="../assets/up_icon.png" class="h-5 w-5 object-scale-down mx-auto block"/>
   </button>
@@ -224,7 +224,7 @@ const activeList = computed(() => {
   <!-- button za kreiranje nove liste i/ili nove stavke list; pop up za dodavanje liste/elementa liste -->
   <button
     @click="Popup = true"
-    class="fixed top-20 right-4 z-50 p-4 bg-emerald-100/50 hover:bg-violet-200/50 text-white rounded-full shadow-lg transition">
+    class="fixed top-20 right-4 z-50 p-4 bg-emerald-100/50 hover:bg-gradient-to-br hover:from-violet-600 hover:to-emerald-500 text-white rounded-full shadow-lg transition">
     <img src="../assets/create_icon.png" class="h-5 w-5 object-scale-down mx-auto block"/>
   </button>
 
