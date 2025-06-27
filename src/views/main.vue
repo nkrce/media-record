@@ -335,16 +335,17 @@ const activeList = computed(() => {
             type="name"
             class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400"
           />
-          <input  v-model="newCardElement.comment"
+          <textarea v-model="newCardElement.comment"
             placeholder="Comment..."
-            type="name"
+            rows="4"
             class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400"
           />
           <!--rating-->
           <div class="flex items-center gap-2 mb-4">
             <p>Rating:</p>
             <input  v-model="newCardElement.rating"
-              class="p-2 mb-2 w-12 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400"
+              type="number" min="1" max="5"
+              class="p-2 mb-2 w-15 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400"
             />
             <p>/5★</p>
           </div>

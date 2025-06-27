@@ -6,7 +6,7 @@ Funkcionalnosti:
 - stvaranje korisničkog računa 
 - stvaranje i imenovanje listi
 - dodavanje podataka u liste i uređivanje podataka u listi
-- ostavljanje osobnih recenzija i komentara za pojedinačne stavke u listi po izboru
+- ostavljanje osobnih recenzija i komentara za pojedinačne elemente u listi po izboru
 
 
 ### Autor
@@ -19,7 +19,7 @@ Figma: [Media Record - Figma](https://www.figma.com/proto/Qyz4jHr9P3jTMsSs7yaDl8
 
 ### Javni link na aplikaciju
 
-Web: https://netlify... (dodat će se kasnije)
+Web: ([Media Record - Vercel](https://media-record-roan.vercel.app/))
 
 ### Organizacija
 
