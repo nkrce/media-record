@@ -1,169 +1,157 @@
 <script setup>
-import { ref } from "vue";
-import { computed } from "vue";
-import ListStructure from "@/components/ListStructure.vue";
-import CardElement from "@/components/CardElement.vue";
-import ListButton from "@/components/ListButton.vue";
+import { ref, computed } from 'vue';
+// firebase
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth, db } from '@/firebase';
+// firebase firestore funkcije za rad s dokumentima
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+// router
+import { useRouter } from 'vue-router';
+
+// komponente
+import ListStructure from '@/components/ListStructure.vue';
+import CardElement from '@/components/CardElement.vue';
+import ListButton from '@/components/ListButton.vue';
 
 // ikone/logo za liste
-import appLogo from "@/assets/app_logo.png";
-import booksIcon from "@/assets/books_icon.png";
-import moviesIcon from "@/assets/movies_icon.png";
-import gamesIcon from "@/assets/games_icon.png";
-import musicIcon from "@/assets/music_icon.png";
-
-// log out korisnika
-import { signOut } from 'firebase/auth'
-import { auth } from '@/firebase'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-const logout = async () => {
-  await signOut(auth)
-  router.push('/') 
-}
-
-// pop up i navigacija kroz liste
-const Popup = ref(false);
-const selectList = ref("mainPage");
-const createNew = ref("start");
+import appLogo from '@/assets/app_logo.png';
+import booksIcon from '@/assets/books_icon.png';
+import moviesIcon from '@/assets/movies_icon.png';
+import gamesIcon from '@/assets/games_icon.png';
+import musicIcon from '@/assets/music_icon.png';
 
 // list buttons
-const listButtons = ref([
-  { img: booksIcon, title: "Books" },
-  { img: moviesIcon, title: "Movies" },
-  { img: gamesIcon, title: "Games" },
-  { img: musicIcon, title: "Music" },
-]);
+const listButtons = ref([]);
+// elementi liste
+const listElements = ref([]); 
+// trenutno odabrana lista
+const selectList = ref('mainPage'); 
+// pop up
+const Popup = ref(false); 
+const createNew = ref('start'); 
+const newListButton = ref({ img: '', title: '' }); 
+const newCardElement = ref({ listTitle: '', img: '', title: '', comment: '', rating: '' }); 
 
-// dodavanje novog list button
-const newListButton = ref({
-  img: "",
-  title: "",
+// firestore ref za dokument korisnika
+let userDocRef; 
+// router za navigaciju
+const router = useRouter(); 
+
+// prikaz podataka pri promjeni u autentifikaciji
+onAuthStateChanged(auth, async user => {
+  if (user) {
+    // pokazuje dokumente ako je korisnik prijavljen
+    userDocRef = doc(db, 'users', user.uid);
+    const snap = await getDoc(userDocRef);
+    if (snap.exists()) {
+      // prikaz postojećih podataka u dokumentu
+      const d = snap.data();
+      listButtons.value = d.listButtons;
+      listElements.value = d.listElements;
+    } else {
+      // default podatci koje ima svaki novi korisnik
+      const defaults = {
+        listButtons: [
+          { img: booksIcon, title: 'Books' },
+          { img: moviesIcon, title: 'Movies' },
+          { img: gamesIcon, title: 'Games' },
+          { img: musicIcon, title: 'Music' }
+        ],
+        listElements: [
+          { title: 'Books', cards: [ 
+             { img: booksIcon, title: "Book Title 1", 
+               comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+               rating: "4",},
+             { img: booksIcon, title: "Book Title 2", comment: "Review comment", rating: "3",},
+          ] },
+          { title: 'Movies', cards: [
+            { img: moviesIcon, title: "Movie Title 1", comment: "Review comment", rating: "4",},
+            { img: moviesIcon, title: "Movie Title 2", comment: "Review comment", rating: "3",},
+          ] },
+          { title: 'Games', cards: [
+            { img: gamesIcon, title: "Game Title 1", comment: "Review comment", rating: "4",},
+            { img: gamesIcon, title: "Game Title 2", comment: "Review comment", rating: "3",},
+          ] },
+          { title: 'Music', cards: [
+            { img: musicIcon, title: "Music Title 1", comment: "Review comment", rating: "4",},
+            { img: musicIcon, title: "Music Title 2", comment: "Review comment", rating: "3",},
+          ] }
+        ]
+      };
+      await setDoc(userDocRef, defaults); 
+      listButtons.value = defaults.listButtons;
+      listElements.value = defaults.listElements;
+    }
+  } else {
+    // ako korisnik nije ulogiran, otvara početnu stranicu
+    router.push('/');
+  }
 });
 
-// array za liste i elemente listi
-const listElements = ref([
-  {
-    title: "Books",
-    cards: [
-      { img: booksIcon, title: "Book Title 1", 
-        comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        rating: "4",},
-      { img: booksIcon, title: "Book Title 2", comment: "Review comment", rating: "3",},
-      { img: booksIcon, title: "Book Title 3", comment: "Review comment", rating: "3.5",},
-      { img: booksIcon, title: "Book Title 4", comment: "Review comment", rating: "5",},
-    ],
-  },
-  {
-    title: "Movies",
-    cards: [
-      { img: moviesIcon, title: "Movie Title 1", comment: "Review comment", rating: "4",},
-      { img: moviesIcon, title: "Movie Title 2", comment: "Review comment", rating: "3",},
-      { img: moviesIcon, title: "Movie Title 3", comment: "Review comment", rating: "3.5",},
-      { img: moviesIcon, title: "Movie Title 4", comment: "Review comment", rating: "5",},
-    ],
-  },
-  {
-    title: "Games",
-    cards: [
-      { img: gamesIcon, title: "Game Title 1", comment: "Review comment", rating: "4",},
-      { img: gamesIcon, title: "Game Title 2", comment: "Review comment", rating: "3",},
-      { img: gamesIcon, title: "Game Title 3", comment: "Review comment", rating: "3.5",},
-      { img: gamesIcon, title: "Game Title 4", comment: "Review comment", rating: "5",},
-    ],
-  },
-  {
-    title: "Music",
-    cards: [
-      { img: musicIcon, title: "Music Title 1", comment: "Review comment", rating: "4",},
-      { img: musicIcon, title: "Music Title 2", comment: "Review comment", rating: "3",},
-      { img: musicIcon, title: "Music Title 3", comment: "Review comment", rating: "3.5",},
-      { img: musicIcon, title: "Music Title 4", comment: "Review comment", rating: "5",},
-    ],
-  },
-]);
+// spremanje trenutnog stanja u firestore
+function save() {
+  if (userDocRef) {
+    updateDoc(userDocRef, {
+      listButtons: listButtons.value,
+      listElements: listElements.value
+    });
+  }
+}
 
-// dodavanje nove liste i button-a za navigaciju
-const addList = () => {
+// odjavu korisnika
+function logout() {
+  signOut(auth); 
+  router.push('/'); 
+}
+
+// dodavanje nove liste i novog list buttona
+function addList() {
   const title = newListButton.value.title.trim();
-  if (!title) return;
-  // dodavanje nove liste u listElements
-  listElements.value.unshift({
-    title,
-    cards: [],
-  });
-  // dodavanje novog button-a u listButtons
-  listButtons.value.push({
-    title,
-    img: newListButton.value.img || appLogo,
-  });
+  if (!title) return; 
+  // nova lista
+  listElements.value.unshift({ title, cards: [] }); 
+  // novi button
+  listButtons.value.push({ title, img: newListButton.value.img || appLogo }); 
+  newListButton.value = { img: '', title: '' }; 
+  createNew.value = 'start'; 
+  Popup.value = false; 
+  save(); 
+}
 
-  newListButton.value = {
-    title: "",
-    img: appLogo,
-  };
-
-  createNew.value = 'start';
-  Popup.value = false;
-};
-
-// dodavanje elementa u listu 
-const newCardElement = ref({
-  listTitle: '',
-  img: '',
-  title: '',
-  comment: '',
-  rating: ''
-});
-
-const addCardElement = () => {
-  const list = listElements.value.find(element => element.title === newCardElement.value.listTitle);
-  if (!list) return;
-
+// dodavanje novog elementa u listu
+function addCardElement() {
+  const list = listElements.value.find(l => l.title === newCardElement.value.listTitle);
+  if (!list) return; 
   list.cards.push({
     img: newCardElement.value.img || appLogo,
     title: newCardElement.value.title.trim(),
     comment: newCardElement.value.comment.trim(),
     rating: newCardElement.value.rating
   });
-
-  newCardElement.value = {
-    listTitle: '',
-    img: '',
-    title: '',
-    comment: '',
-    rating: ''
-  };
-
+  newCardElement.value = { listTitle: '', img: '', title: '', comment: '', rating: '' }; 
   createNew.value = 'start';
   Popup.value = false;
+  save(); 
 }
 
-// brisanje liste/elementa liste
-const deleteCard = (index) => {
-  const list = listElements.value.find((list) => list.title === selectList.value);
-  if (list) {
-    list.cards.splice(index, 1);
-  }
-};
+// brisanje elementa u listi
+function deleteCard(index) {
+  const list = listElements.value.find(l => l.title === selectList.value);
+  if (list) list.cards.splice(index, 1); 
+  save(); 
+}
 
-const deleteList = (listTitle) => {
-  // brisanje iz listElements
-  listElements.value = listElements.value.filter(list => list.title !== listTitle);
-  
-  // brisanje iz listButtons
-  listButtons.value = listButtons.value.filter(button => button.title !== listTitle);
-  
-  if (selectList.value === listTitle) {
-    selectList.value = 'mainPage';
-  }
-};
+// brisanje liste i list button-a
+function deleteList(title) {
+  listElements.value = listElements.value.filter(l => l.title !== title);
+  listButtons.value = listButtons.value.filter(b => b.title !== title);
+  if (selectList.value === title) selectList.value = 'mainPage'; 
+  save(); 
+}
 
-
-// aktivna lista
+// trenutno aktivna lista
 const activeList = computed(() => {
-  return listElements.value.find((list) => list.title === selectList.value);
+  return listElements.value.find(l => l.title === selectList.value);
 });
 </script>
 
@@ -198,9 +186,7 @@ const activeList = computed(() => {
   </div>
 
   <!--buttons za navigiranje kroz liste -->
-  <div
-    class="flex flex-wrap justify-center items-center gap-2 p-2 rounded-lg w-fit pt-10 mx-auto"
-  >
+  <div class="flex flex-wrap justify-center items-center gap-2 p-2 rounded-lg w-fit pt-10 mx-auto">
     <ListButton
       v-for="(list, index) in listButtons"
       :key="'list-' + index"
