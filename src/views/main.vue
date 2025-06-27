@@ -12,6 +12,18 @@ import moviesIcon from "@/assets/movies_icon.png";
 import gamesIcon from "@/assets/games_icon.png";
 import musicIcon from "@/assets/music_icon.png";
 
+// log out korisnika
+import { signOut } from 'firebase/auth'
+import { auth } from '@/firebase'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const logout = async () => {
+  await signOut(auth)
+  router.push('/') 
+}
+
+// pop up i navigacija kroz liste
 const Popup = ref(false);
 const selectList = ref("mainPage");
 const createNew = ref("start");
@@ -172,12 +184,11 @@ const activeList = computed(() => {
       </button>
 
       <nav class="ml-auto flex gap-4">
-        <RouterLink to="/">
-          <button
+          <!--log out iz aplikacije-->
+          <button @click="logout"
             class="px-3 py-2 bg-gradient-to-br from-violet-700 to-emerald-500 text-white text-sm rounded-lg transition-all shadow-lg cursor-pointer hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
             Log out
           </button>
-        </RouterLink>
       </nav>
     </div>
   </header>
@@ -327,7 +338,7 @@ const activeList = computed(() => {
               </option>
             </select>
           </div>
-          
+
           <input v-model="newCardElement.img"
             placeholder="Image url..."
             type="image-url"
