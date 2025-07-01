@@ -1,13 +1,13 @@
 # "Media Record"
 
-Aplikacija služi vođenju listi za bilo koju mediju  koju je korisnik gledao/slušao/čitao ili to planira raditi u budućnosti. Korisnik može odabrati za koji tip medija služi koja lista. Ako korisnik npr. odabere listu za knjige, prvo može označiti je li to lista pročitanih knjiga ili lista knjiga koje planira pročitati, nakon toga na listu može dodavati knjige, osobne recenzije i komentare. 
+Aplikacija služi vođenju listi za bilo koju mediju koju je korisnik gledao/slušao/čitao ili to planira raditi u budućnosti. Korisnik može odabrati za koji tip medija služi koja lista tako da kreira listu i da joj ime po želji. Ako korisnik npr. nazove listu "knjige", nakon toga na listu može dodavati knjige, osobne recenzije i komentare.
 
 Funkcionalnosti:
-- stvaranje korisničkog računa 
+- stvaranje korisničkog računa
 - stvaranje i imenovanje listi
-- dodavanje podataka u liste i uređivanje podataka u listi
+- dodavanje podataka u liste i brisanje podataka u list ili čak brisanje same liste
+- uređivanje listi i elemenata u listi
 - ostavljanje osobnih recenzija i komentara za pojedinačne elemente u listi po izboru
-
 
 ### Autor
 Nikolina Krce
@@ -19,7 +19,7 @@ Figma: [Media Record - Figma](https://www.figma.com/proto/Qyz4jHr9P3jTMsSs7yaDl8
 
 ### Javni link na aplikaciju
 
-Web: ([Media Record - Vercel](https://media-record-roan.vercel.app/))
+Web: ([Media Record - Vercel](https://media-record-two.vercel.app/))
 
 ### Organizacija
 
