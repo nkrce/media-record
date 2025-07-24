@@ -14,6 +14,7 @@ const emit = defineEmits(['delete','update']); // za brisanje i uredivanje
     <div class="flex items-center border-b-3 border-white pb-4 justify-between mb-6">
      <div class="flex items-center gap-4">
       <h1 class="font-bold text-3xl">{{ title }}</h1>
+      <!--edit-->
         <button @click="$emit('update')" class="text-3xl w-12 h-12 rounded-full flex items-center justify-center bg-transparent hover:bg-gradient-to-br hover:from-violet-600 hover:to-emerald-500 text-white shadow-lg transition duration-300">
           ✎
         </button>

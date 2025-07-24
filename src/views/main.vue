@@ -247,7 +247,7 @@ const activeList = computed(() => {
           <div class="flex flex-col justify-between items-center gap-3">
             <button
               @click="createNew = 'list'"
-              class="px-4 py-2 bg-violet-900 border border-white text-white font-bold rounded-lg transition-all shadow-lg cursor-pointer hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
+              class="text-sm px-4 py-2 bg-violet-900 border border-white text-white font-bold rounded-lg transition-all shadow-lg cursor-pointer hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
               LIST
             </button>
 
@@ -255,7 +255,7 @@ const activeList = computed(() => {
 
             <button
               @click="createNew = 'element'"
-              class="px-4 py-2 bg-emerald-600 border border-white text-white font-bold rounded-lg transition-all shadow-lg cursor-pointer hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
+              class="text-sm px-4 py-2 bg-emerald-600 border border-white text-white font-bold rounded-lg transition-all shadow-lg cursor-pointer hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
               LIST ELEMENT/REVIEW
             </button>
           </div>
