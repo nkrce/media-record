@@ -26,11 +26,16 @@ const listButtons = ref([]);
 const listElements = ref([]); 
 // trenutno odabrana lista
 const selectList = ref('mainPage'); 
-// pop up
+// pop up za dodavanje liste/elemenata
 const Popup = ref(false); 
 const createNew = ref('start'); 
 const newListButton = ref({ img: '', title: '' }); 
 const newCardElement = ref({ listTitle: '', img: '', title: '', comment: '', rating: '' }); 
+
+// pop up za uređivanje liste
+const PopupEditList = ref(false); 
+// pop up za uređivanje elementa liste
+const PopupEditElement = ref(false);
 
 // firestore ref za dokument korisnika
 let userDocRef; 
@@ -200,7 +205,7 @@ const activeList = computed(() => {
 
   <!--ListStructure component za sve liste i CardElement unutar listi-->
   <div v-if="activeList">
-    <ListStructure :title="activeList.title" @delete="deleteList">
+    <ListStructure :title="activeList.title" @delete="deleteList" @update ="PopupEditList = true">
       <CardElement
         v-for="(card, index) in activeList.cards"
         :key="index"
@@ -209,6 +214,7 @@ const activeList = computed(() => {
         :comment="card.comment"
         :rating="card.rating"
         @delete="deleteCard(index)"
+        @update ="PopupEditElement = true"
       />
     </ListStructure>
   </div>
@@ -365,4 +371,88 @@ const activeList = computed(() => {
       </div>
     </div>
   </div>
+
+ <!--pop up za uređivanje imena liste i logo slike na list button -->
+ 
+ <div v-if="PopupEditList" class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center">
+   <div class="bg-gray-800 shadow-xl rounded-xl p-6 max-w-md w-full">
+    <h2 class="text-3xl font-bold mb-4 text-white text-center">
+      Edit list:
+    </h2>
+      <input
+        v-model="newListButton.title"
+        @keyup.enter="addList"
+        placeholder="List name..."
+        type="name"
+        class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400"
+      />
+      <input
+        v-model="newListButton.img"
+        placeholder="List image url..."
+        type="image-url"
+        class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400"
+      />
+
+      <div class="flex items-center justify-between gap-3">
+        <button @click="PopupEditList = false"
+          class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500">
+          exit
+        </button>
+
+        <button @click="addList"
+          class="px-4 py-2 bg-gradient-to-br from-violet-700 to-emerald-500 border border-white text-white font-bold rounded-lg transition-all shadow-lg cursor-pointer hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
+          save edits
+        </button>
+    </div>
+   </div>
+ </div>
+
+
+ <!--pop up za uređivanje određene stavke liste -->
+ 
+ <div v-if="PopupEditElement" class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center">
+   <div class="bg-gray-800 shadow-xl rounded-xl p-6 max-w-md w-full">
+    <h2 class="text-3xl font-bold mb-4 text-white text-center">
+      Edit list element/review:
+    </h2>
+      <input
+        v-model="newListButton.img"
+        placeholder="Image url..."
+        type="image-url"
+        class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400"
+      />
+      <input v-model="newCardElement.title"
+            placeholder="Title..."
+            type="name"
+            class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400"
+        />
+      <textarea v-model="newCardElement.comment"
+            placeholder="Comment..."
+            rows="4"
+            class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400"
+      />
+      <!--rating-->
+          <div class="flex items-center gap-2 mb-4">
+            <p>Rating:</p>
+            <input  v-model="newCardElement.rating"
+              type="number" min="1" max="5"
+              class="p-2 mb-2 w-15 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400"
+            />
+            <p>/5★</p>
+          </div>
+
+      <div class="flex items-center justify-between gap-3">
+        <button @click="PopupEditElement = false"
+          class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500">
+          exit
+        </button>
+
+        <button @click="addList"
+          class="px-4 py-2 bg-gradient-to-br from-violet-700 to-emerald-500 border border-white text-white font-bold rounded-lg transition-all shadow-lg cursor-pointer hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
+          save edits
+        </button>
+    </div>
+   </div>
+ </div>
+
 </template>
