@@ -154,6 +154,37 @@ function deleteList(title) {
   save(); 
 }
 
+// uređivanje imena liste i list button-a test
+/*
+function updateList(oldName, updatedData) {
+  const list = listElements.value.find(l => l.title === oldName);
+  if (list) {
+    list.title = updatedData.title || list.title;
+    list.img = updatedData.img || appLogo;
+  } 
+  const button = listButtons.value.find(b => b.title === oldTitle);
+    if (button) {
+      button.title = updatedData.title ?? button.title;
+      button.img = updatedData.img   || appLogo;
+    }
+  save(); 
+} 
+*/
+
+// uređivanje određenog elementa liste 
+const editingIndex = ref(null);
+
+function updateCard(index, updatedData) {
+  const list = listElements.value.find(l => l.title === selectList.value);
+  if (list && list.cards[index]) {
+    list.cards[index].title = updatedData.title ?? list.cards[index].title;
+    list.cards[index].comment = updatedData.comment ?? list.cards[index].comment;
+    list.cards[index].rating = updatedData.rating ?? list.cards[index].rating;
+    list.cards[index].img = updatedData.img || appLogo;
+    save();
+  }
+}
+
 // trenutno aktivna lista
 const activeList = computed(() => {
   return listElements.value.find(l => l.title === selectList.value);
@@ -214,7 +245,7 @@ const activeList = computed(() => {
         :comment="card.comment"
         :rating="card.rating"
         @delete="deleteCard(index)"
-        @update ="PopupEditElement = true"
+        @update ="editingIndex = index; newCardElement = { ...card }; PopupEditElement = true"
       />
     </ListStructure>
   </div>
@@ -416,7 +447,7 @@ const activeList = computed(() => {
       Edit list element/review:
     </h2>
       <input
-        v-model="newListButton.img"
+        v-model="newCardElement.img"
         placeholder="Image url..."
         type="image-url"
         class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white placeholder-gray-400"
@@ -447,7 +478,7 @@ const activeList = computed(() => {
           exit
         </button>
 
-        <button @click="addList"
+        <button @click="updateCard(editingIndex, newCardElement); PopupEditElement = false"
           class="px-4 py-2 bg-gradient-to-br from-violet-700 to-emerald-500 border border-white text-white font-bold rounded-lg transition-all shadow-lg cursor-pointer hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
           save edits
         </button>
