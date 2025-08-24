@@ -265,7 +265,10 @@ const activeList = computed(() => {
 
   <!-- button za kreiranje nove liste i/ili nove stavke list; pop up za dodavanje liste/elementa liste -->
   <button
-    @click="Popup = true"
+    @click="Popup = true; 
+            // resetiranje da budu prazni input blokovi
+            newCardElement = { listTitle: '', img: '', title: '', comment: '', rating: '' }; 
+            newListButton = { img: '', title: '' };" 
     class="fixed top-20 right-4 z-50 p-4 bg-emerald-100/50 hover:bg-gradient-to-br hover:from-violet-600 hover:to-emerald-500 text-white rounded-full shadow-lg transition">
     <img src="../assets/create_icon.png" class="h-5 w-5 object-scale-down mx-auto block"/>
   </button>
@@ -274,7 +277,7 @@ const activeList = computed(() => {
     class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center">
     <div class="p-6 rounded-xl max-w-xl w-full relative">
       <button
-        @click="Popup = false"
+        @click="Popup = false;"
         class="absolute top-5 right-5 text-white font-bold text-3xl">
         &times;
       </button>
