@@ -155,21 +155,25 @@ function deleteList(title) {
 }
 
 // uređivanje imena liste i list button-a test
-/*
+const editingListName = ref(null); 
+
 function updateList(oldName, updatedData) {
   const list = listElements.value.find(l => l.title === oldName);
   if (list) {
     list.title = updatedData.title || list.title;
     list.img = updatedData.img || appLogo;
   } 
-  const button = listButtons.value.find(b => b.title === oldTitle);
+  const button = listButtons.value.find(b => b.title === oldName);
     if (button) {
       button.title = updatedData.title ?? button.title;
       button.img = updatedData.img   || appLogo;
     }
+   if (selectList.value === oldName && updatedData.title) {
+    selectList.value = updatedData.title;
+  }
   save(); 
 } 
-*/
+
 
 // uređivanje određenog elementa liste 
 const editingIndex = ref(null);
@@ -236,7 +240,8 @@ const activeList = computed(() => {
 
   <!--ListStructure component za sve liste i CardElement unutar listi-->
   <div v-if="activeList">
-    <ListStructure :title="activeList.title" @delete="deleteList" @update ="PopupEditList = true">
+    <ListStructure :title="activeList.title" @delete="deleteList" @update ="PopupEditList = true; editingListName = activeList.title;
+    newListButton = { title: activeList.title, img: activeList.img };">
       <CardElement
         v-for="(card, index) in activeList.cards"
         :key="index"
@@ -430,7 +435,7 @@ const activeList = computed(() => {
           exit
         </button>
 
-        <button @click="addList"
+        <button @click="updateList(editingListName, newListButton); PopupEditList = false"
           class="px-4 py-2 bg-gradient-to-br from-violet-700 to-emerald-500 border border-white text-white font-bold rounded-lg transition-all shadow-lg cursor-pointer hover:brightness-125 hover:scale-102 disabled:opacity-50 disabled:pointer-events-none">
           save edits
         </button>
